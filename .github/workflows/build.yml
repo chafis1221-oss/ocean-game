@@ -6,10 +6,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  # ===== BUILD APK =====
-  build-apk:
-    name: Build Android APK
+  build:
+    name: Build APK + Web
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,6 +23,7 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      # ===== BUILD APK =====
       - name: Build APK
         run: flutter build apk --release
 
@@ -32,23 +33,7 @@ jobs:
           name: ocean-game.apk
           path: build/app/outputs/flutter-apk/app-release.apk
 
-  # ===== BUILD WEB =====
-  build-web:
-    name: Build Web
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.22.0'
-          channel: 'stable'
-
-      - name: Install dependencies
-        run: flutter pub get
-
+      # ===== BUILD WEB =====
       - name: Build Web
         run: flutter build web --release
 
