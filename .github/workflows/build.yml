@@ -2,7 +2,8 @@ name: Build Ocean Command
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -17,17 +18,19 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.22.0'
-          channel: 'stable'
+          flutter-version: "3.22.0"
+          channel: stable
 
-      # 🔥 GENERATE FOLDER ANDROID/IOS YANG HILANG
-      - name: Generate missing android/ios
-        run: flutter create .
+      # Generate folder android/ dan ios/ jika belum ada
+      - name: Generate Flutter platform folders
+        run: |
+          flutter create . \
+            --project-name ocean_game \
+            --org com.chafis
 
       - name: Install dependencies
         run: flutter pub get
 
-      # ===== BUILD APK =====
       - name: Build APK
         run: flutter build apk --release
 
@@ -37,7 +40,6 @@ jobs:
           name: ocean-game.apk
           path: build/app/outputs/flutter-apk/app-release.apk
 
-      # ===== BUILD WEB =====
       - name: Build Web
         run: flutter build web --release
 
