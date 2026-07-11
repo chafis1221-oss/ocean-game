@@ -1,4 +1,4 @@
-// weather_system.dart - Weather system (pake VFX)
+// weather_system.dart - Weather system (pake rain particle baru)
 
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +15,7 @@ class WeatherSystem extends Component {
   double _changeInterval = 30;
   final Random _random = Random();
   
-  late RainWeatherSystem rainSystem;
+  late RainParticleSystem rainSystem;
   late NightFilter nightFilter;
   late FogEffect fogEffect;
   bool _initialized = false;
@@ -30,12 +30,12 @@ class WeatherSystem extends Component {
     fogEffect = FogEffect();
     await gameRef.add(fogEffect);
     
-    rainSystem = RainWeatherSystem();
+    rainSystem = RainParticleSystem();
     await gameRef.add(rainSystem);
     
     _changeWeather();
     _initialized = true;
-    print('🌤️ Weather system (VFX) loaded!');
+    print('🌤️ Weather system loaded!');
   }
 
   @override
