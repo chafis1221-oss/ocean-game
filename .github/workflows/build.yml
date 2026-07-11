@@ -20,6 +20,10 @@ jobs:
           flutter-version: '3.22.0'
           channel: 'stable'
 
+      # 🔥 GENERATE FOLDER ANDROID/IOS YANG HILANG
+      - name: Generate missing android/ios
+        run: flutter create .
+
       - name: Install dependencies
         run: flutter pub get
 
